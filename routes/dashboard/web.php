@@ -39,6 +39,16 @@
     Route::get('/searchVideo','Dashboard\VideoController@searchVideos')->name('live-search-video');
     Route::get('/notifications/{type}/{id}/{objectId}/{notyId}','Dashboard\NotificationController@showNotificationInfo')->name('showInfo');
     Route::get('/notification/{checkType}/{objecType}/{id}/{notyId}','Dashboard\NotificationController@handleNotification')->name('handleNoty');
+    Route::get('/categories','CategoryController@index')->name('showCategories');
+    Route::get('/categories/create','CategoryController@create')->name('createCategory');
+    Route::post('/categories/store','CategoryController@store')->name('storeCategory');
+    Route::get('/categories/{category}','CategoryController@edit')->name('editCategory');
+    Route::put('/categories/{category}','CategoryController@update')->name('updateCategory');
+    Route::get('/categories/{id}/{name}','CategoryController@delete')->name('deleteCategory');
+    
+    
+    
+    
     //Route::get('/searchPage','Dashboard\PageController@searchPages');
 
 // Route::get('/', function () {

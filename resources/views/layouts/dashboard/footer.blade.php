@@ -102,6 +102,40 @@
         timeout: 2000,
         }).show();
       @endif
+
+
+      @if(session('create_category'))
+        new Noty({
+        type: 'success',
+        layout: 'topRight',
+        timeout: 3000,
+        theme: 'mint',
+        text: '{{session('create_category')}}',
+        timeout: 2000,
+        }).show();
+      @endif
+
+      @if(session('delete_cat'))
+        new Noty({
+        type: 'success',
+        layout: 'topRight',
+        timeout: 3000,
+        theme: 'mint',
+        text: '{{session('delete_cat')}}',
+        timeout: 2000,
+        }).show();
+      @endif
+
+      @if(session('update_category'))
+        new Noty({
+        type: 'success',
+        layout: 'topRight',
+        timeout: 3000,
+        theme: 'mint',
+        text: '{{session('update_category')}}',
+        timeout: 2000,
+        }).show();
+      @endif
 </script>
     <script>
     function doAfterSelectImage(input){

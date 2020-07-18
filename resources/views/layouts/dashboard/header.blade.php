@@ -259,6 +259,19 @@
             </li>
             @endif
             <li class="treeview">
+              <a href="{{route('showCategories')}}">
+                <i class="fa fa-users"></i>
+                <span>الأصناف</span>
+                <i class="fa fa-angle-left pull-left"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{route('showCategories')}}"><i class="fa fa-circle-o"></i>كل الأصناف</a></li>
+                <li><a href="{{route('showForm')}}"><i class="fa fa-circle-o"></i> إضافة صنف جديد </a></li>
+               
+                
+              </ul>
+            </li>
+            <li class="treeview">
               <a href="#">
                 <i class="fa fa-edit"></i> <span>الصفحات</span>
                 <i class="fa fa-angle-left pull-left"></i>

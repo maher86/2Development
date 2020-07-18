@@ -9,7 +9,7 @@ use App\Audio;
 class Category extends Model
 {
    
-
+    protected $fillable =['name','desc'];
 
     public function page(){
 
