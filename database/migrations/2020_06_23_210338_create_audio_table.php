@@ -22,6 +22,8 @@ class CreateAudioTable extends Migration
             $table->text('adminComment')->nullable();
             $table->timestamps();
             $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('cat_id')->unsigned();
+            $table->foreign('cat_id')->references('id')->on('categories');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
