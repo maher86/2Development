@@ -45,7 +45,7 @@ class NotificationController extends Controller
             $notificationCreator->notify(new RejectedEntity($objectName));
             (Auth::user()->notifications->find($notyId))->markAsRead();
         }
-        //$theObject->adminComment = $request->input('adminComment');
+        $theObject->adminComment = $request->input('adminComment');
         $theObject->update();
         return view('/layouts/dashboard/app');
     }
