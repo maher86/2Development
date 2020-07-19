@@ -40,6 +40,17 @@
                             <input type="file" name="imagePage"class="form-control-file" id="imageCover">
                         </div> 
                         <div class="form-group">
+                            <label for="bodyPage">الصنف</label>
+                            <select class="form-control" name="category" style="padding-top:0px">
+                            <option value="">إختر تصنيف لهذا الصفحة</option>
+                            @foreach(App\Category::all() as $category)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
+
+                            @endforeach
+                            
+                            </select>
+                        </div> 
+                        <div class="form-group">
                             <label >  حالة الصفحة</label>
                             <br>
                             <input type="radio" name="status" value="نشطة" {{Auth::user()->hasRole('super_admin') ? 'checked' : '' }}  {{!Auth::user()->hasRole('super_admin') ? 'disabled' : '' }}  ><b>نشطة</b>

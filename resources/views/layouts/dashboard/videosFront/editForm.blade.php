@@ -33,6 +33,17 @@
                         <div class="form-group">
                             <label for="bodyPage">الوصف</label>
                             <textarea class="form-control" name="body" id="bodyPage"  rows="10">{{$video->body}}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="bodyPage">الصنف</label>
+                            <select class="form-control" name="category" >
+                            <option value="">إختر تصنيف لهذا الفيديو</option>
+                            @foreach(App\Category::all() as $category)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
+
+                            @endforeach
+                            
+                            </select>
                         </div> 
                         <div class="form-group">
                             <label for="videof">الفيديو المرفوع </label>

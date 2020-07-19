@@ -26,7 +26,7 @@ class CategoryController extends Controller
         $cat = new Category();
         $request->validate([
             'name'=>['required','string'],
-            'desc'=>['string']
+            
         ]);
 
         $cat->name = $request->input('name');

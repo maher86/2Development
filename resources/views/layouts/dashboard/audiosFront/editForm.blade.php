@@ -35,6 +35,17 @@
                             <textarea class="form-control" name="body" id="bodyPage"  rows="10">{{$audio->body}}</textarea>
                         </div> 
                         <div class="form-group">
+                            <label for="bodyPage">الصنف</label>
+                            <select class="form-control" name="category" style="padding-top:0px">
+                            <option value="">إختر تصنيف لهذا التسجيل الصوتي</option>
+                            @foreach(App\Category::all() as $category)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
+
+                            @endforeach
+                            
+                            </select>
+                        </div> 
+                        <div class="form-group">
                             <label for="videof">التسجيل المرفوع </label>
                             <input type="file" name="audioFile"class="form-control-file" id="videof">
                         </div> 

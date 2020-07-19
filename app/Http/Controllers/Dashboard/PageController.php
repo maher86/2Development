@@ -33,6 +33,7 @@ class PageController extends Controller
         $this->validate(request(), [
             'title'     => ['required', 'string'],
             'body'      => ['required', 'string'],
+            'category'  => ['required','string'],
             'imagePage'=>['required','mimes:jpeg,png,JPG,jpg'],
         ]);
         
@@ -50,6 +51,7 @@ class PageController extends Controller
             $page->url = $path;
             $page->status =$request->input('status');
             $page->user_id = $id;
+            $page->cat_id  = $request->input('category');
             $page->save();
             $admins = User::whereRoleIs('super_admin')->get();
              if($page->status=="نشطة"){
@@ -83,7 +85,8 @@ class PageController extends Controller
 
             $this->validate(request(), [
                 'title'     => ['required', 'string', 'max:255'],
-                'body'      => ['required', 'string', ],
+                'body'      => ['required', 'string' ],
+                'category'  => ['string'],
                 'imagePage'=>['mimes:jpeg,png'],
             ]);
             

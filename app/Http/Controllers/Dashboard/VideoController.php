@@ -32,6 +32,7 @@ class VideoController extends Controller
         $this->validate(request(), [
             'title'     => ['required', 'string', 'max:255'],
             'body'      => ['required', 'string'],
+            'category'  => ['required','string'],
             'video'     => ['mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi']
             
         ]);
@@ -48,6 +49,7 @@ class VideoController extends Controller
             $videoUploaded->title = $request->input('title');
             $videoUploaded->body = $request->input('body');            
             $videoUploaded->url = $path;
+            $videoUploaded->cat_id = $request->input('category');
             $videoUploaded->status =$request->input('status');
             $videoUploaded->user_id = $id;
             $videoUploaded->save();
@@ -85,7 +87,8 @@ class VideoController extends Controller
             $this->validate(request(), [
                 'title'     => [ 'string', 'max:255'],
                 'body'      => [ 'string'],
-                'videoFile'=>['mimes:mp4,mov,ogg,qt,avi'],
+                'category'  =>['string'],
+                'videoFile' =>['mimes:mp4,mov,ogg,qt,avi'],
             ]);
             
             if($request->has('videoFile')){
