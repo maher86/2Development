@@ -12,6 +12,7 @@ class RejectedEntity extends Notification
 {
     use Queueable;
     private $theEntity;
+    private $entityId;
 
 
     /**
@@ -19,9 +20,10 @@ class RejectedEntity extends Notification
      *
      * @return void
      */
-    public function __construct($theEntity)
+    public function __construct($theEntity,$entityId)
     {
         $this->theEntity = $theEntity;
+        $this->entityId  = $entityId;
     }
 
     /**
@@ -58,6 +60,8 @@ class RejectedEntity extends Notification
     public function toArray($notifiable)
     {
         return [
+            'Entity' =>$this->theEntity,
+            'entityId'=>$this->entityId,
             'message'=>'تم رفض  '.__('words.'.$this->theEntity).'الخاص بك',
         ];
     }

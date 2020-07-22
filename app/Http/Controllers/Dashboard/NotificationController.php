@@ -31,22 +31,33 @@ class NotificationController extends Controller
 
     }
 
-    public function handleNotification($AprovmentType,$objectName,$objId,$notyId){
+    public function handleNotification(Request $request,$objectName,$objId,$notyId){
         $theNotification = Auth::user()->notifications->find($notyId);
         $notificationCreator =User::find($theNotification->data['id']);
         $class_name= 'App\\'.$objectName;
         $theObject  = $class_name::find($objId);
-        if($AprovmentType=="approve"){            
-            $theObject->status="نشطة";
-            $notificationCreator->notify(new ApprovedEntity($objectName));
+        if($request->submitButton =="موافقة"){            
+            $theObject->status="قبول";
+            $notificationCreator->notify(new ApprovedEntity($objectName,$objId));
             (Auth::user()->notifications->find($notyId))->markAsRead();
         }else{
-            $theObject->status="مرفوضة"; 
-            $notificationCreator->notify(new RejectedEntity($objectName));
+            $theObject->status="رفض"; 
+            $notificationCreator->notify(new RejectedEntity($objectName,$objId));
             (Auth::user()->notifications->find($notyId))->markAsRead();
         }
         $theObject->adminComment = $request->input('adminComment');
         $theObject->update();
         return view('/layouts/dashboard/app');
     }
+
+    public function showApprovedOrRejectedPage($id){
+        $theNotification = Auth::user()->notifications->find($id);
+        $theEntityName = $theNotification->data['Entity'];
+        $EntityClass = 'App\\'.$theEntityName;
+        $Entity = $EntityClass::find($theNotification->data['entityId']);
+        (Auth::user()->notifications->find($id))->markAsRead();
+        return view('/layouts/dashboard/RejectedOrApprovedPage',compact('Entity','theEntityName'));
+
+    }
+
 }

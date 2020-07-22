@@ -13,15 +13,17 @@ class ApprovedEntity extends Notification
     use Queueable;
 
     private $theEntity;
+    private $entityId;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($theEntity)
+    public function __construct($theEntity,$entityId)
     {
         $this->theEntity = $theEntity;
+        $this->entityId  = $entityId;
     }
 
     /**
@@ -58,6 +60,8 @@ class ApprovedEntity extends Notification
     public function toArray($notifiable)
     {
         return [
+            'Entity' =>$this->theEntity,
+            'entityId'=>$this->entityId,
             'message'=>'تمت الموافقة على '.__('words.'.$this->theEntity).'الخاص بك',
         ];
     }

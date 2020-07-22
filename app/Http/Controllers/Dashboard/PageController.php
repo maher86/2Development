@@ -33,7 +33,7 @@ class PageController extends Controller
         $this->validate(request(), [
             'title'     => ['required', 'string'],
             'body'      => ['required', 'string'],
-            'category'  => ['required','string'],
+            'category'  => ['exists:categories,id'],
             'imagePage'=>['required','mimes:jpeg,png,JPG,jpg'],
         ]);
         
@@ -86,7 +86,7 @@ class PageController extends Controller
             $this->validate(request(), [
                 'title'     => ['required', 'string', 'max:255'],
                 'body'      => ['required', 'string' ],
-                'category'  => ['string'],
+                'category'  => ['exists:categories,id'],
                 'imagePage'=>['mimes:jpeg,png'],
             ]);
             

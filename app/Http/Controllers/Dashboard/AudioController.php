@@ -30,7 +30,7 @@ class AudioController extends Controller
         $this->validate(request(), [
             'title'     => ['required', 'string', 'max:255'],
             'body'      => ['required', 'string'],
-            'catergory' => ['required','string'],
+            'catergory' => ['exists:categories,id'],
             'audioFile'=>['mimes:audio/mpeg,mpga,mp3,wav,aac'],
             
         ]);

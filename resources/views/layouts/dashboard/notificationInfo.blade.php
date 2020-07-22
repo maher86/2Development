@@ -43,10 +43,22 @@
                             </div>
                           </div>
                         </div>
+                        <form  method="post" action="{{route('handleNoty',[$objectName,$theObject->id,$notyId])}}">
+                        {{ csrf_field() }}
+                    {{method_field('POST')}}
+                        <div class="form-group">
+                        <label for="admin_comment" style="margin-top:10px;margin-right:20px">تعليقات المسؤول</label>
+                        <textarea class="form-control" name="adminComment" id="admin_comment" cols="30" rows="10" style="margin-top: 20px;
+    width: 550px;
+    margin-right: 20px;">
+                        </textarea>
+                        
+                        </div>
                         
                         <div class="box-footer">
-                    <a href="{{route('handleNoty',['draft',$objectName,$theObject->id,$notyId])}}"  class="btn btn-default"  style="margin:10px">رفض</a>
-                    <a href="{{route('handleNoty',['approve',$objectName,$theObject->id,$notyId])}}"  class="btn btn-info pull-right"  style="margin:10px">مصادقة</a>
+                    <input type="submit"  class="btn btn-default" name ="submitButton" value="رفض" style="margin:10px">
+                    <input type="submit"   class="btn btn-info pull-right" name="submitButton" value="موافقة" style="margin:10px">
+                    </form>
                     
                   </div>
                       </div>

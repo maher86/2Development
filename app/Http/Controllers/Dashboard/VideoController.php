@@ -32,7 +32,7 @@ class VideoController extends Controller
         $this->validate(request(), [
             'title'     => ['required', 'string', 'max:255'],
             'body'      => ['required', 'string'],
-            'category'  => ['required','string'],
+            'category'  => ['exists:categories,id'],
             'video'     => ['mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi']
             
         ]);
@@ -87,7 +87,7 @@ class VideoController extends Controller
             $this->validate(request(), [
                 'title'     => [ 'string', 'max:255'],
                 'body'      => [ 'string'],
-                'category'  =>['string'],
+                'category'  =>['exists:categories,id'],
                 'videoFile' =>['mimes:mp4,mov,ogg,qt,avi'],
             ]);
             

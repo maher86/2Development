@@ -141,7 +141,7 @@
                     @foreach(Auth::user()->unreadNotifications  as $notification)
                       <li><!-- Task item -->
                         @if($notification->type=="App\Notifications\AddingUser" ||$notification->type=="App\Notifications\DeleteUser"|| $notification->type=="App\Notifications\ApprovedEntity" || $notification->type== "App\Notifications\RejectedEntity")
-                        <a href="#">
+                        <a href="{{route('showReturnNotyPage',$notification->id)}}">
                         @else
                         <a href="{{route('showInfo',[$notification->type,$notification->data['id'],$notification->data['objId'],$notification->id])}}">
                         @endif

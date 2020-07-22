@@ -38,7 +38,8 @@
     Route::get('/searchAudio','Dashboard\AudioController@searchAudios')->name('live-search-audio');
     Route::get('/searchVideo','Dashboard\VideoController@searchVideos')->name('live-search-video');
     Route::get('/notifications/{type}/{id}/{objectId}/{notyId}','Dashboard\NotificationController@showNotificationInfo')->name('showInfo');
-    Route::get('/notification/{checkType}/{objecType}/{id}/{notyId}','Dashboard\NotificationController@handleNotification')->name('handleNoty');
+    Route::post('/notification/{objecType}/{id}/{notyId}','Dashboard\NotificationController@handleNotification')->name('handleNoty');
+    Route::get('/notification/{id}','Dashboard\notificationController@showApprovedOrRejectedPage')->name('showReturnNotyPage');
     Route::get('/categories','CategoryController@index')->name('showCategories');
     Route::get('/categories/create','CategoryController@create')->name('createCategory');
     Route::post('/categories/store','CategoryController@store')->name('storeCategory');
