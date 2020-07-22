@@ -9,6 +9,10 @@ use App\Video;
 use App\page;
 use App\Audio;
 use App\User;
+use App\GusetComment;
+use App\Notifications\CreateGusetComment;
+use App\Notifications\CreateUserComment;
+
 use App\Notifications\CreatePage;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,11 +24,27 @@ class CommentController extends Controller
             
         ]);
         $video=Video::find($id);
+        $admins = User::whereRoleIs('super_admin')->get();
+        if(Auth::check()){
         $comment = new Comment();
         $comment->body = $request->input('body');
         $comment->user_id = Auth::id();
+        $comment->status = "مسودة";
         $comment->commentable()->associate($video);        
         $comment->save();
+        foreach($admins as $admin){
+            $admin->notify(new CreateUserComment($id,Auth::id(),'App\Video'));                     
+         }
+        }else{
+        $comment = new GusetComment();
+        $comment->body = $request->input('body');
+        $comment->status = "مسودة";
+        $comment->commentable()->associate($video);
+        $comment->save();
+        foreach($admins as $admin){
+            $admin->notify(new CreateGusetComment($id,'App\Video'));                     
+         }
+        }
         return redirect('/videos/'.$id);
     }
 
@@ -34,11 +54,18 @@ class CommentController extends Controller
             
         ]);
         $page=Page::find($id);
-        $comment = new Comment();
-        $comment->body = $request->input('body');
-        $comment->user_id = Auth::id();
-        $comment->commentable()->associate($page);        
-        $comment->save();
+        if(Auth::check()){
+            $comment = new Comment();
+            $comment->body = $request->input('body');
+            $comment->user_id = Auth::id();
+            $comment->commentable()->associate($page);        
+            $comment->save();
+            }else{
+            $comment = new GusetComment();
+            $comment->body = $request->input('body');
+            $comment->commentable()->associate($page);
+            $comment->save();
+            }
         return redirect('/pages/'.$id);
     }
 
@@ -48,11 +75,18 @@ class CommentController extends Controller
             
         ]);
         $audio=Audio::find($id);
-        $comment = new Comment();
-        $comment->body = $request->input('body');
-        $comment->user_id = Auth::id();
-        $comment->commentable()->associate($audio);        
-        $comment->save();
+        if(Auth::check()){
+            $comment = new Comment();
+            $comment->body = $request->input('body');
+            $comment->user_id = Auth::id();
+            $comment->commentable()->associate($audio);        
+            $comment->save();
+            }else{
+            $comment = new GusetComment();
+            $comment->body = $request->input('body');
+            $comment->commentable()->associate($audio);
+            $comment->save();
+            }
         return redirect('/podcasts/'.$id);
     }
     

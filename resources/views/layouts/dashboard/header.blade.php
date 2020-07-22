@@ -76,41 +76,43 @@
                             
               
               
-              <!---create page,video,audio-->
-              <!-- {{$count = DB::table('notifications')
-                            ->where('notifiable_id',Auth::id())
-                            ->where('type','App\Notifications\CreateAudio')
-                            ->orWhere('type','App\Notifications\CreatePage')
-                            ->orWhere('type',' App\Notifications\CreateVideo')
-                            ->count()}} -->
-              <!-- <li class="dropdown tasks-menu">
+              <!---create comment-->
+              <li class="dropdown tasks-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-pencil-square-o"></i>
+                  <i class="fa fa-file-text" aria-hidden="true"></i>
                   
-                  @if($count>0)
+                  @if(Auth::check() && Auth::user()->unreadNotifications->count()>0)
                   
-                  <span class="label label-danger">{{$count}}</span>
+                  <span class="label label-danger">{{DB::table('Notifications')->whereNull('read_at')->where('notifiable_id','=',Auth::id())
+                  ->where(function($query)
+                  {
+                    $query->where('type','=','App\Notifications\CreateGusetComment')
+                          ->orWhere('type','=','App\Notifications\CreateUserComment');
+                  })
+                  ->count()
+                  }}</span>
                   @endif
                 </a>
                 @if (Auth::user()->hasRole('super_admin') || Auth::user()->hasRole('admin') )
                 <ul class="dropdown-menu">
-                  <li class="header">You have {{$count}}  notifications</li>
+                  <li class="header">لديك  {{DB::table('Notifications')->whereNull('read_at')->where('notifiable_id','=',Auth::id())
+                  ->where(function($query)
+                  {
+                    $query->where('type','=','App\Notifications\CreateGusetComment')
+                          ->orWhere('type','=','App\Notifications\CreateUserComment');
+                  })
+                  ->count()}}  إشعارات حول تعليقات المستخدمين </li>
                   <li>
-                    <!-- inner menu: contains the actual data 
+                    <!-- inner menu: contains the actual data -->
                     <ul class="menu">
-                    
-                    @foreach( DB::table('notifications')
-                            ->where('notifiable_id',Auth::id())
-                            ->where('type','App\Notifications\CreateAudio')
-                            ->orWhere('type','App\Notifications\CreatePage')
-                            ->orWhere('type',' App\Notifications\CreateVideo')
-                            ->get()  as $notification)
-                            
-                        <li><!-- Task item ->
-                          <a href="#">
-                          <span style="color:blue">  </span><span style="color:#00a65a"></span>
-                          </a>
-                        </li><!-- end task item --
+                    @foreach(Auth::user()->unreadNotifications  as $notification)
+                      <li><!-- Task item -->
+                        @if($notification->type=="App\Notifications\CreateUserComment" ||$notification->type=="App\Notifications\CreateGusetComment")
+                        <a href="#">                        
+                        <span style="color:blue"> {{$notification->data['message']}} </span><span style="color:#00a65a"></span>
+                        </a>
+                        @endif
+                      </li><!-- end task item -->
                       @endforeach
                     </ul>
                   </li>
@@ -119,7 +121,8 @@
                   </li>
                 </ul>
                 @endif
-              </li> -->
+              </li>
+              
               
               
               <!-- Tasks: style can be found in dropdown.less -->
@@ -129,23 +132,42 @@
                   
                   @if(Auth::check() && Auth::user()->unreadNotifications->count()>0)
                   
-                  <span class="label label-danger">{{Auth::user()->unreadNotifications->count()}}</span>
+                  <span class="label label-danger">{{DB::table('Notifications')->whereNull('read_at')->where('notifiable_id','=',Auth::id())
+                  ->where(function($query)
+                  {
+                    $query->where('type','!=','App\Notifications\CreateGusetComment')
+                          ->orWhere('type','!=','App\Notifications\CreateUserComment');
+                  })
+                  ->count()
+                  }}</span>
                   @endif
                 </a>
                 @if (Auth::user()->hasRole('super_admin') || Auth::user()->hasRole('admin') )
                 <ul class="dropdown-menu">
-                  <li class="header">You have {{Auth::user()->unreadNotifications->count()}}  notifications</li>
+                  <li class="header">لديك {{DB::table('Notifications')->whereNull('read_at')->where('notifiable_id','=',Auth::id())
+                  ->where(function($query)
+                  {
+                    $query->where('type','!=','App\Notifications\CreateGusetComment')
+                          ->orWhere('type','!=','App\Notifications\CreateUserComment');
+                  })
+                  ->count()
+                  }}  إشعارات</li>
                   <li>
                     <!-- inner menu: contains the actual data -->
                     <ul class="menu">
                     @foreach(Auth::user()->unreadNotifications  as $notification)
                       <li><!-- Task item -->
-                        @if($notification->type=="App\Notifications\AddingUser" ||$notification->type=="App\Notifications\DeleteUser"|| $notification->type=="App\Notifications\ApprovedEntity" || $notification->type== "App\Notifications\RejectedEntity")
+                        @if( $notification->type=="App\Notifications\ApprovedEntity" || $notification->type== "App\Notifications\RejectedEntity")
                         <a href="{{route('showReturnNotyPage',$notification->id)}}">
-                        @else
-                        <a href="{{route('showInfo',[$notification->type,$notification->data['id'],$notification->data['objId'],$notification->id])}}">
-                        @endif
                         <span style="color:blue"> {{$notification->data['message']}} </span><span style="color:#00a65a"></span>
+                        @elseif ($notification->type=="App\Notifications\CreateAudio" || $notification->type=="App\Notifications\CreateVideo" || $notification->type=="App\Notifications\CreatePage")
+                        <a href="{{route('showInfo',[$notification->type,$notification->data['id'],$notification->data['objId'],$notification->id])}}">
+                        <span style="color:blue"> {{$notification->data['message']}} </span><span style="color:#00a65a"></span>
+                        @elseif ($notification->type=="App\Notifications\AddingUser" ||$notification->type=="App\Notifications\DeleteUser")
+                        <a href="#">
+                        <span style="color:blue"> {{$notification->data['message']}} </span><span style="color:#00a65a"></span>
+                        @endif
+                        
                         </a>
                       </li><!-- end task item -->
                       @endforeach

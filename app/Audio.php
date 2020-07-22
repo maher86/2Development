@@ -12,6 +12,11 @@ class Audio extends Model
         return $this->morphMany('App\Comment', 'commentable');
     }
 
+    public function gusetComments()
+    {
+        return $this->morphMany('App\GusetComment', 'commentable');
+    }
+
     public function user(){
 
         return $this->belongsTo('App\User');
