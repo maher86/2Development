@@ -132,24 +132,16 @@
                   
                   @if(Auth::check() && Auth::user()->unreadNotifications->count()>0)
                   
-                  <span class="label label-danger">{{DB::table('Notifications')->whereNull('read_at')->where('notifiable_id','=',Auth::id())
-                  ->where(function($query)
-                  {
-                    $query->where('type','!=','App\Notifications\CreateGusetComment')
-                          ->orWhere('type','!=','App\Notifications\CreateUserComment');
-                  })
+                  <span class="label label-danger">{{DB::table('Notifications')->where('notifiable_id','=',Auth::id())->whereNull('read_at')
+                    ->where('type','<>','App\Notifications\CreateGusetComment')->where('type','<>','App\Notifications\CreateUserComment')
                   ->count()
                   }}</span>
                   @endif
                 </a>
                 @if (Auth::user()->hasRole('super_admin') || Auth::user()->hasRole('admin') )
                 <ul class="dropdown-menu">
-                  <li class="header">لديك {{DB::table('Notifications')->whereNull('read_at')->where('notifiable_id','=',Auth::id())
-                  ->where(function($query)
-                  {
-                    $query->where('type','!=','App\Notifications\CreateGusetComment')
-                          ->orWhere('type','!=','App\Notifications\CreateUserComment');
-                  })
+                  <li class="header">لديك {{DB::table('Notifications')->where('notifiable_id','=',Auth::id())->whereNull('read_at')
+                    ->where('type','<>','App\Notifications\CreateGusetComment')->where('type','<>','App\Notifications\CreateUserComment')
                   ->count()
                   }}  إشعارات</li>
                   <li>
@@ -157,7 +149,7 @@
                     <ul class="menu">
                     @foreach(Auth::user()->unreadNotifications  as $notification)
                       <li><!-- Task item -->
-                        @if( $notification->type=="App\Notifications\ApprovedEntity" || $notification->type== "App\Notifications\RejectedEntity")
+                        @if( $notification->type =="App\Notifications\ApprovedEntity" || $notification->type == "App\Notifications\RejectedEntity")
                         <a href="{{route('showReturnNotyPage',$notification->id)}}">
                         <span style="color:blue"> {{$notification->data['message']}} </span><span style="color:#00a65a"></span>
                         @elseif ($notification->type=="App\Notifications\CreateAudio" || $notification->type=="App\Notifications\CreateVideo" || $notification->type=="App\Notifications\CreatePage")

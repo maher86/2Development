@@ -59,8 +59,7 @@ class VideoController extends Controller
              }else{
                 session()->flash('draft video','تم انشاء الصفحة بصيغة مسودة وهي بانتظار مصادقة المسؤول');
                 foreach($admins as $admin){
-                    $admin->notify(new CreateVideo($id,$videoUploaded->id));
-                     
+                    $admin->notify(new CreateVideo($id,$videoUploaded->id));                     
                  }
             }  
             

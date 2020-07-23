@@ -61,6 +61,7 @@ class CreateUserComment extends Notification
     {
         return [
             "message" => 'لقد تم نشر تعليق من قبل المستخدم '.(App/User::find($this->commenterId))->name,
+            "id"
         ];
     }
 }

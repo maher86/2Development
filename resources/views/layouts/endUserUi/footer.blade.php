@@ -1,52 +1,63 @@
-<footer style="direction:rtl">
-
-		<div class="container">
-			<div class="row">
-
-				<div class="col-lg-6 col-md-6">
-					<div class="footer-section">
-
-						<a class="logo" href="#"><h4>جمعية نحو التنمية</h4></a>
-						
-						<ul class="icons">
-							<li><a href="#"><i class="ion-social-facebook-outline"></i></a></li>
-							<li><a href="#"><i class="ion-social-twitter-outline"></i></a></li>
-							<li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
-							
+<!-- start footer Area -->
+<footer class="footer-area section-gap">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-6 single-footer-widget">
+						<h4>Top Products</h4>
+						<ul>
+							<li><a href="#">Managed Website</a></li>
+							<li><a href="#">Manage Reputation</a></li>
+							<li><a href="#">Power Tools</a></li>
+							<li><a href="#">Marketing Service</a></li>
 						</ul>
-
-					</div><!-- footer-section -->
-				</div><!-- col-lg-4 col-md-6 -->
-
+					</div>
+					<div class="col-lg-2 col-md-6 single-footer-widget">
+						<h4>Quick Links</h4>
+						<ul>
+							<li><a href="#">Jobs</a></li>
+							<li><a href="#">Brand Assets</a></li>
+							<li><a href="#">Investor Relations</a></li>
+							<li><a href="#">Terms of Service</a></li>
+						</ul>
+					</div>
+					<div class="col-lg-2 col-md-6 single-footer-widget">
+						<h4>Features</h4>
+						<ul>
+							<li><a href="#">Jobs</a></li>
+							<li><a href="#">Brand Assets</a></li>
+							<li><a href="#">Investor Relations</a></li>
+							<li><a href="#">Terms of Service</a></li>
+						</ul>
+					</div>
+					<div class="col-lg-2 col-md-6 single-footer-widget">
+						<h4>Resources</h4>
+						<ul>
+							<li><a href="#">Guides</a></li>
+							<li><a href="#">Research</a></li>
+							<li><a href="#">Experts</a></li>
+							<li><a href="#">Agencies</a></li>
+						</ul>
+					</div>
+					
+				</div>
 				
-				<div class="col-lg-6 col-md-6">
-					<div class="footer-section">
-
-						<h4 class="title"><b>إشترك الآن</b></h4>
-						<div class="input-area">
-							<form>
-								<input class="email-input" type="text" placeholder="اكتب بريدك الالكتروني هنا">
-								<button class="submit-btn" type="submit"><i class="icon ion-ios-email-outline"></i></button>
-							</form>
-						</div>
-
-					</div><!-- footer-section -->
-				</div><!-- col-lg-4 col-md-6 -->
-
-			</div><!-- row -->
-		</div><!-- container -->
-	</footer>
-
-
-	<!-- SCIPTS -->
-
-	<script src="{{asset('endUserUi/common-js/jquery-3.1.1.min.js')}}"></script>
-
-	<script src="{{asset('endUserUi/common-js/tether.min.js')}}"></script>
-
-	<script src="{{asset('endUserUi/common-js/bootstrap.js')}}"></script>
-
-	<script src="{{asset('endUserUi/common-js/scripts.js')}}"></script>
-
-</body>
+			</div>
+		</footer>
+		<!-- End footer Area -->
+		<script src="{{asset('endUserUi/js/vendor/jquery-2.2.4.min.js')}}"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="{{asset('endUserUi/js/vendor/bootstrap.min.js')}}"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+		<script src="{{asset('endUserUi/js/easing.min.js')}}"></script>
+		<script src="{{asset('endUserUi/js/hoverIntent.js')}}"></script>
+		<script src="{{asset('endUserUi/js/superfish.min.js')}}"></script>
+		<script src="{{asset('endUserUi/js/jquery.ajaxchimp.min.js')}}"></script>
+		<script src="{{asset('endUserUi/js/jquery.magnific-popup.min.js')}}"></script>
+		<script src="{{asset('endUserUi/js/mn-accordion.js')}}"></script>
+		<script src="{{asset('endUserUi/js/jquery-ui.js')}}"></script>
+		<script src="{{asset('endUserUi/js/jquery.nice-select.min.js')}}"></script>
+		<script src="{{asset('endUserUi/js/owl.carousel.min.js')}}"></script>
+		<script src="{{asset('endUserUi/js/mail-script.js')}}"></script>
+		<script src="{{asset('endUserUi/js/main.js')}}"></script>
+	</body>
 </html>
