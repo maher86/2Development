@@ -44,22 +44,32 @@ class AudioController extends Controller
         // }else{
         //     $path =$page->image;
         }
+        if($request->has('audio_cover')){
+            $image=$request->file('audio_cover');
+            $name = str_slug($request->input('audio_cover')).'_'.time().'.'. $image->getClientOriginalExtension();
+            $folder = '/uploads/audios';
+            $filePath = $folder . $name;
+            $pathCover = $request->file('audio_cover')->storeAs( $folder, $name,'public');
+        }
+            
             $audioUploaded->title = $request->input('title');
             $audioUploaded->body = $request->input('body');            
             $audioUploaded->url = $path;
+            $audioUploaded->mediaCover = $pathCover;
             $audioUploaded->status =$request->input('status');
             $audioUploaded->user_id = $id;
-            $audioUploaded->cat_id = $request->input('category');
+            $audioUploaded->category_id = $request->input('category');
             $audioUploaded->save();
             $admins = User::whereRoleIs('super_admin')->get();
              if($audioUploaded->status=="نشطة"){
              session()->flash('audio created','تم إنشاء البودكاست بنجاح والمصادقة عليها ');
              }else{
                 session()->flash('draft audio','تم انشاء البودكاست بصيغة مسودة وهي بانتظار مصادقة المسؤول');                
-            } 
-            foreach($admins as $admin){
-                $admin->notify(new CreateAudio($id,$audioUploaded->id)); 
-             }
+                foreach($admins as $admin){
+                    $admin->notify(new CreateAudio($id,$audioUploaded->id)); 
+                 }
+            
+            }            
             return redirect('/audios');
          }
 

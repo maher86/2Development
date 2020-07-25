@@ -17,13 +17,14 @@ class CreateVideosTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('url');
+            $table->string('mediaCover');
             $table->string('status');
             $table->text('body');
             $table->text('adminComment')->nullable();
             $table->timestamps();
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('cat_id')->unsigned();
-            $table->foreign('cat_id')->references('id')->on('categories');
+            $table->bigInteger('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

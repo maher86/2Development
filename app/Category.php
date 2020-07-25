@@ -22,6 +22,12 @@ class Category extends Model
         return $this->hasMany("App\Video");
 
     }
+    public function lastVideo(){
+
+        return $this->hasMany("App\Video")->latest();
+
+    }
+
 
     public function audio(){
 

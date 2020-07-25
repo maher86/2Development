@@ -48,9 +48,13 @@
                         </div> 
 
                         <div class="form-group">
+                            <label for="videocover">صورة غلاف الفيديو</label>
+                            <input type="file" name="vdieo_cover"class="form-control-file" id="videocover">
+                        </div>
+                        <div class="form-group">
                             <label for="videohandler">الفيديو</label>
                             <input type="file" name="videoFile"class="form-control-file" id="videohandler">
-                        </div> 
+                        </div>  
                         <div class="form-group">
                             <label >  حالة الفيديو</label>
                             <br>

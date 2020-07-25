@@ -31,7 +31,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-6" style="height: 300px;overflow: auto;">
                             <div class="card h-100">                  
                               <div class="single-post post-style-1">
                                 <div class="blog-image" style="margin:10px;border-radius:20px">

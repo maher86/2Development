@@ -8,6 +8,7 @@ use App\Video;
 use App\User;
 use App\Notifications\CreateVideo;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManagerStatic as Image;
 class VideoController extends Controller
 {
 
@@ -33,7 +34,8 @@ class VideoController extends Controller
             'title'     => ['required', 'string', 'max:255'],
             'body'      => ['required', 'string'],
             'category'  => ['exists:categories,id'],
-            'video'     => ['mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi']
+            'video'     => ['mimetypes:video/x-ms-asf,video/x-flv,video/mp4,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi'],
+            'vdieo_cover'=>['required','mimes:jpeg,png,JPG,jpg'],
             
         ]);
         
@@ -46,18 +48,28 @@ class VideoController extends Controller
         // }else{
         //     $path =$page->image;
         }
+        if($request->has('vdieo_cover')){
+            $image=$request->file('vdieo_cover');
+            $name = str_slug($request->input('vdieo_cover')).'_'.time().'.'. $image->getClientOriginalExtension();
+            $folder = '/uploads/videos';
+            $filePath = $folder . $name;
+            $pathCover = $request->file('vdieo_cover')->storeAs( $folder, $name,'public');
+            
+        }
+         
             $videoUploaded->title = $request->input('title');
             $videoUploaded->body = $request->input('body');            
             $videoUploaded->url = $path;
-            $videoUploaded->cat_id = $request->input('category');
+            $videoUploaded->mediaCover = $pathCover;
+            $videoUploaded->category_id = $request->input('category');
             $videoUploaded->status =$request->input('status');
             $videoUploaded->user_id = $id;
             $videoUploaded->save();
             $admins = User::whereRoleIs('super_admin')->get();
             if($videoUploaded->status=="نشطة"){
-             session()->flash('video created','تم إنشاء الصفحة بنجاح والمصادقة عليها ');
+             session()->flash('video created','تم إنشاء الفيديو بنجاح والمصادقة عليها ');
              }else{
-                session()->flash('draft video','تم انشاء الصفحة بصيغة مسودة وهي بانتظار مصادقة المسؤول');
+                session()->flash('draft video','تم انشاء الفيديو بصيغة مسودة وهي بانتظار مصادقة المسؤول');
                 foreach($admins as $admin){
                     $admin->notify(new CreateVideo($id,$videoUploaded->id));                     
                  }

@@ -51,18 +51,18 @@ class PageController extends Controller
             $page->url = $path;
             $page->status =$request->input('status');
             $page->user_id = $id;
-            $page->cat_id  = $request->input('category');
+            $page->category_id  = $request->input('category');
             $page->save();
             $admins = User::whereRoleIs('super_admin')->get();
              if($page->status=="نشطة"){
              session()->flash('page created','page created');
              }else{
                 session()->flash('draft page','تم انشاء الصفحة بصيغة مسودة وهي بانتظار مصادقة المسؤول');
-                
+                foreach($admins as $admin){
+                    $admin->notify(new CreatePage($id,$page->id)); 
+                } 
             } 
-            foreach($admins as $admin){
-                $admin->notify(new CreatePage($id,$page->id)); 
-            } 
+            
             return redirect('/pages');
          }
 

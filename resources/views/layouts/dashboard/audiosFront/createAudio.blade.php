@@ -46,6 +46,10 @@
                             </select>
                         </div> 
                         <div class="form-group">
+                            <label for="videocover">صورة غلاف التسجيل</label>
+                            <input type="file" name="audio_cover"class="form-control-file" id="videocover">
+                        </div>
+                        <div class="form-group">
                             <label for="audiohandler">التسجيل الصوتي</label>
                             <input type="file" name="audioFile"class="form-control-file" id="audiohandler">
                         </div> 
